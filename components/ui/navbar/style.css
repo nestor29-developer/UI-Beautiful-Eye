@@ -1,0 +1,30 @@
+.Text__detail {
+  letter-spacing: 7px !important;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.Text__detail--moving {
+  background: linear-gradient(
+    to right,
+    hsl(0, 0%, 70%) 0,
+    hsl(0, 0%, 100%) 90%,
+    hsl(0, 0%, 70%) 20%
+  );
+  -webkit-background-clip: text;
+  background-clip: none;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 600px;
+  }
+  100% {
+    background-position: 600px;
+  }
+}

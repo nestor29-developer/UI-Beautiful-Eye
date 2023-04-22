@@ -1,0 +1,42 @@
+.link-underline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent),
+    linear-gradient(#364152, #364152);
+  background-size: 0 3px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s ease-in-out;
+}
+
+.link-underline-black {
+  background-image: linear-gradient(transparent, transparent),
+    linear-gradient(#364152, #364152);
+}
+
+.link-underline-yellow {
+  background-image: linear-gradient(transparent, transparent),
+    linear-gradient(#BC8129, #BC8129);
+}
+
+.link-underline:hover {
+  background-size: 100% 3px;
+  background-position: 0 100%;
+}
+
+.header--color {
+  background-color: rgb(255, 252, 247);
+  box-shadow: rgba(93, 81, 50, 0.05) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.06) 0px 30px 60px -30px;
+}
+
+.Header__details:hover {
+  color: rgb(188, 129, 41);
+}
+
+.Header__details {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 36px;
+  letter-spacing: -0.005em;
+}
+

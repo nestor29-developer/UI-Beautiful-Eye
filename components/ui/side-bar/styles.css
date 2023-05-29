@@ -1,0 +1,8 @@
+.SideBar--container {
+  position: absolute !important;
+  height: calc(100% - 44px) !important;
+}
+
+.Cross-alignment {
+  text-align: -webkit-right;
+}

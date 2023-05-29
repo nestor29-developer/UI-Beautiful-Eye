@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useMemo } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
   ArrowPathIcon,
@@ -18,7 +18,9 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
 import "./styles.css";
-import { CardWithImage } from "components/ui/card";
+import { CardWithImage } from "components/ui/card-single-image";
+import { useProductsBuyCarSidebar, useShouldUpdateCarIems } from "@/lib/store";
+import { getTotalCarPurchaseProducts } from "components/common/utils";
 
 const products = [
   {
@@ -72,10 +74,29 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Header = () => {
+export const Header = ({
+  openSideBar,
+  setOpenSideBar,
+}: {
+  openSideBar: boolean;
+  setOpenSideBar: any;
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropDownDetails, setOpenDropDownDetails] =
     useState<boolean>(false);
+  const productsCarBuy = useProductsBuyCarSidebar(
+    (state: any) => state.productsBuyCarSidebar
+  );
+  const products = useProductsBuyCarSidebar(
+    (state: any) => state.productsBuyCarSidebar
+  );
+  const [productsCarPurchase, setProductsCarPurchase] = useState<any>(0);
+  const shouldUpdateCarItems = useShouldUpdateCarIems(
+    (state: any) => state.shouldUpdateCarItems
+  );
+  const setShouldUpdateCarProducts = useShouldUpdateCarIems(
+    (state: any) => state.setShouldUpdateCarItems
+  );
 
   const handleMouseEnter = () => {
     setOpenDropDownDetails(true);
@@ -86,6 +107,18 @@ export const Header = () => {
       setOpenDropDownDetails(false);
     }, 850);
   };
+
+  const handleSideBar = () => {
+    setOpenSideBar(!openSideBar);
+  };
+
+  useMemo(() => {
+    if (products && products.length > 0) {
+      let items = getTotalCarPurchaseProducts(products);
+      setProductsCarPurchase(items);
+      if (shouldUpdateCarItems) setShouldUpdateCarProducts(false);
+    }
+  }, [products, shouldUpdateCarItems]);
 
   return (
     <header className="header--color sticky top-0 z-50">
@@ -107,7 +140,11 @@ export const Header = () => {
           <Popover.Group className="hidden lg:flex lg:gap-x-12 items-center">
             <div className="flex lg:flex-1">
               <a href="#" className="">
-                <img className="h-32 w-32 hover:opacity-70" src="/img/logo.jpeg" alt="" />
+                <img
+                  className="h-32 w-32 hover:opacity-70"
+                  src="/img/logo.jpeg"
+                  alt=""
+                />
               </a>
             </div>
             <a
@@ -151,7 +188,7 @@ export const Header = () => {
                           Tonalidades
                         </span>
                       </div>
-                      {products.map((item) => (
+                      {products.map((item: any) => (
                         <div
                           key={item.name}
                           className="ml-16 h-5/6 group relative flex justify-center items-center gap-x-2 p-4 leading-6 cursor-pointer last:mb-8"
@@ -170,8 +207,14 @@ export const Header = () => {
                     </div>
 
                     <div className="flex flex-row mr-20 py-9 space-x-4">
-                      <CardWithImage image="lenses-1.webp" title="Grises" />
-                      <CardWithImage image="lenses-2.jpeg" title="Media Luna" />
+                      <CardWithImage
+                        image="lenses-1.webp"
+                        title="dna taylor blue gray"
+                      />
+                      <CardWithImage
+                        image="brown-eye.jpeg"
+                        title="media luna"
+                      />
                     </div>
                   </div>
                 </div>
@@ -198,21 +241,38 @@ export const Header = () => {
             </svg>
           </div>
 
-          <div className="h-7 w-7 cursor-pointer text-[#364152] hover:opacity-80">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
+          <div className="flex">
+            <div
+              className="h-7 w-7 cursor-pointer text-[#364152] hover:opacity-80"
+              onClick={handleSideBar}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                />
+              </svg>
+            </div>
+            {productsCarPurchase > 0 && (
+              <div
+                className="flex justify-center bg-[#364152] rounded-full w-[18.5px] h-[18.5px] absolute ml-3.5 mb-1"
+                onClick={handleSideBar}
+              >
+                <h2 className="text-xs mt-[1px]">
+                  <span className="text-center whitespace-nowrap align-baseline text-white font-semibold">
+                    {productsCarPurchase}
+                  </span>
+                </h2>
+              </div>
+            )}
           </div>
         </div>
       </nav>

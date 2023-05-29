@@ -11,3 +11,24 @@ export const isSafari = () => {
     !agentHas("CriOS")
   );
 };
+
+export const getLocalStorage = (localDataKey: any) => {
+  let localData = localStorage.getItem(localDataKey);
+  localData = localData ? JSON.parse(localData) : localData;
+  return localData;
+};
+
+export const setLocalStorage = (localDataKey: any, localDataValue: any) => {
+  localStorage.setItem(localDataKey, JSON.stringify(localDataValue));
+};
+
+export const getTotalCarPurchaseProducts = (products: any[]) => {
+  let items = 0;
+  products.forEach((element: any) => {
+    const amount = element?.amount ?? 0;
+    if (amount > 0) {
+      items += amount;
+    }
+  });
+  return items;
+};

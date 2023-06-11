@@ -32,3 +32,15 @@ export const getTotalCarPurchaseProducts = (products: any[]) => {
   });
   return items;
 };
+
+export const getCurrencyFormat = (
+  amount: any,
+  locale: string,
+  currency: string
+) => {
+  return amount.toLocaleString(locale, {
+    style: "currency",
+    currency: currency,
+    minimumFractionDigits: 2,
+  });
+};

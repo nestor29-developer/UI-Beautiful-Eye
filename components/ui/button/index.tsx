@@ -11,6 +11,7 @@ export const Button = ({
   iconPosition,
   textClassName,
   animated,
+  iconClass
 }: {
   description: string;
   className?: string;
@@ -20,21 +21,8 @@ export const Button = ({
   iconPosition?: string;
   textClassName?: string;
   animated: boolean;
+  iconClass?: any
 }) => {
-  // const Icon = () => {
-  //   return (
-  //     <motion.div
-  //       animate={{ x: 6 }}
-  //       transition={{ repeat: Infinity, duration: 1 }}
-  //     >
-  //       <ArrowSmallRightIcon
-  //         className="ml-1 h-6 w-6 flex-shrink-0"
-  //         aria-hidden="true"
-  //       />
-  //     </motion.div>
-  //   );
-  // };
-
   return (
     <>
       <button
@@ -61,11 +49,11 @@ export const Button = ({
         ) : (
           <>
             {iconPosition === "left" && (
-              <Icon className="mr-1 h-6 w-6 flex-shrink-0" />
+              <Icon className={`${iconClass} mr-1 h-6 w-6 flex-shrink-0`} />
             )}
             <span className={`${textClassName}`}>{description}</span>
             {iconPosition === "right" && (
-              <Icon className="mr-1 h-6 w-6 flex-shrink-0" />
+              <Icon className={`${iconClass} mr-1 h-6 w-6 flex-shrink-0`} />
             )}
           </>
         )}

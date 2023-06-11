@@ -26,7 +26,7 @@ const Item = ({
     >
       <div className="aspect-square overflow-hidden rounded-[10px] h-auto">
         <img
-          className="transition duration-300 ease-in-out hover:scale-[1.7]"
+          className="transition duration-300 ease-in-out hover:scale-[1.7] cursor-zoom-in"
           src={`/img/contact-lenses-people/${product.imageName}`}
           alt={`${product.imageName}`}
         />

@@ -22,7 +22,7 @@ import { CardWithImage } from "components/ui/card-single-image";
 import { useProductsBuyCarSidebar, useShouldUpdateCarIems } from "@/lib/store";
 import { getTotalCarPurchaseProducts } from "components/common/utils";
 
-const products = [
+const productShades = [
   {
     name: "Azules",
     href: "#",
@@ -77,9 +77,11 @@ function classNames(...classes: any) {
 export const Header = ({
   openSideBar,
   setOpenSideBar,
+  setSearchActive,
 }: {
   openSideBar: boolean;
   setOpenSideBar: any;
+  setSearchActive: any;
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropDownDetails, setOpenDropDownDetails] =
@@ -108,8 +110,9 @@ export const Header = ({
     }, 850);
   };
 
-  const handleSideBar = () => {
+  const handleSideBar = (isSearch: boolean) => {
     setOpenSideBar(!openSideBar);
+    setSearchActive(isSearch);
   };
 
   useMemo(() => {
@@ -188,7 +191,7 @@ export const Header = ({
                           Tonalidades
                         </span>
                       </div>
-                      {products.map((item: any) => (
+                      {productShades.map((item: any) => (
                         <div
                           key={item.name}
                           className="ml-16 h-5/6 group relative flex justify-center items-center gap-x-2 p-4 leading-6 cursor-pointer last:mb-8"
@@ -224,7 +227,10 @@ export const Header = ({
         </div>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <div className="h-7 w-7 cursor-pointer text-[#364152] mr-8 hover:opacity-80">
+          <div
+            className="h-7 w-7 cursor-pointer text-[#364152] mr-8 hover:opacity-80"
+            onClick={() => handleSideBar(true)}
+          >
             <svg
               fill="none"
               stroke="currentColor"
@@ -244,7 +250,7 @@ export const Header = ({
           <div className="flex">
             <div
               className="h-7 w-7 cursor-pointer text-[#364152] hover:opacity-80"
-              onClick={handleSideBar}
+              onClick={() => handleSideBar(false)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +270,7 @@ export const Header = ({
             {productsCarPurchase > 0 && (
               <div
                 className="flex justify-center bg-[#364152] rounded-full w-[18.5px] h-[18.5px] absolute ml-3.5 mb-1"
-                onClick={handleSideBar}
+                onClick={() => handleSideBar(false)}
               >
                 <h2 className="text-xs mt-[1px]">
                   <span className="text-center whitespace-nowrap align-baseline text-white font-semibold">

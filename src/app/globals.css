@@ -184,3 +184,15 @@ h1:hover span {
   background-image: linear-gradient(transparent, transparent),
     linear-gradient(#5f2698, #5f2698);
 }
+
+.goldLight--color {
+  background-color: rgb(255, 252, 247);
+}
+
+.link-underline__thin {
+  background-size: 0 1px;
+}
+
+.link-underline__thin:hover {
+  background-size: 100% 1px;
+}

@@ -5,4 +5,28 @@
 
 .Cross-alignment {
   text-align: -webkit-right;
+  margin-right: 24px;
+  padding-top: 20px;
+}
+
+.container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  margin-bottom: 64px;
+}
+
+.bm-menu {
+  overflow-y: hidden !important;
+}
+
+[type="text"]:focus {
+  --tw-ring-color: transparent;
 }

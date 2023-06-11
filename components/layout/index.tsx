@@ -17,6 +17,7 @@ import { Header } from "../header/index";
 export const Layout = () => {
   const [isOpenBarDiscount, setIsOpenBarDiscount] = useState<boolean>(true);
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   const quickAddition = useQuickAddition((state: any) => state.quickAddition);
   const setProduts = useProductsBuyCarSidebar(
     (state: any) => state.setProductsBuyCarSidebar
@@ -125,13 +126,13 @@ export const Layout = () => {
   return (
     <React.Fragment>
       {openSideBar && (
-        <SideBar openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
+        <SideBar openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} isSearchAction={searchActive} productList={productList} />
       )}
 
       {isOpenBarDiscount && (
         <Navbar setIsOpenBarDiscount={setIsOpenBarDiscount} />
       )}
-      <Header openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
+      <Header openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} setSearchActive={setSearchActive} />
       <div className="w-screen">
         <Slide />
       </div>
